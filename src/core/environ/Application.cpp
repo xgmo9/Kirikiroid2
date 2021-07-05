@@ -97,6 +97,7 @@ ttstr TVPGetErrorDialogTitle() {
 	}
 }
 
+#undef HOOK_MALLOC
 #ifdef HOOK_MALLOC
 extern "C" {
 	void* tc_malloc(size_t size);

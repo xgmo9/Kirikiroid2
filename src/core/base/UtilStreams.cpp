@@ -769,8 +769,8 @@ extern "C" {
 #include "win32io.h"
 
 static ISzAlloc allocImp = {
-	[](void *p, size_t size) -> void * { return malloc(size); },
-	[](void *p, void *addr) { free(addr); }
+	[](void* p, size_t size) -> void * { return malloc(size); },
+	[](void* p, void *addr) { free(addr); }
 };
 class tTVPUnpackArchiveImpl7Zip : public tTVPUnpackArchiveImplLibArchive {
 	int _stream;

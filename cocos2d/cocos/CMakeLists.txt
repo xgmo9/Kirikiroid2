@@ -121,7 +121,7 @@ add_library(cocos2d ${COCOS_SRC})
 
 # use external libs
 add_subdirectory(${COCOS2DX_ROOT_PATH}/external ${ENGINE_BINARY_PATH}/external)
-target_link_libraries(cocos2d external)
+target_link_libraries(cocos2d external turbojpep_static)
 
 # add base macro define and compile options
 use_cocos2dx_compile_define(cocos2d)

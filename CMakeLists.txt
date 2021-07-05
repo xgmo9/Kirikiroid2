@@ -29,11 +29,35 @@ set(APP_NAME MyGame)
 
 project(${APP_NAME})
 
+
 set(COCOS2DX_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d)
 set(CMAKE_MODULE_PATH ${COCOS2DX_ROOT_PATH}/cmake/Modules/)
 
 include(CocosBuildSet)
 add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos ${ENGINE_BINARY_PATH}/cocos/core)
+
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/jxrlib)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/libjpeg-turbo)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/opencv)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/lz4)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/lz4/build/cmake)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/libarchive)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/opencv)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/opus)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/opusfile)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/libogg)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/unrar)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/libogg-1.3.5)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/libvorbis)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/google_breakpad)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/openal-soft)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/oniguruma)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/oboe)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/android-bpg/Android-BPG-client/app/src/main/jni/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/prebuilt/ffmpeg/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rd/SDL2-2.0.14/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/plugins)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/core)
 
 # record sources, headers, resources...
 set(GAME_SOURCE)
@@ -47,20 +71,21 @@ if(APPLE OR WINDOWS)
 endif()
 
 # add cross-platforms source files and header files 
-list(APPEND GAME_SOURCE
-     Classes/AppDelegate.cpp
-     Classes/HelloWorldScene.cpp
-     )
-list(APPEND GAME_HEADER
-     Classes/AppDelegate.h
-     Classes/HelloWorldScene.h
-     )
+# list(APPEND GAME_SOURCE
+#      Classes/AppDelegate.cpp
+#      Classes/HelloWorldScene.cpp
+#      )
+# list(APPEND GAME_HEADER
+#      Classes/AppDelegate.h
+#      Classes/HelloWorldScene.h
+#      )
 
 if(ANDROID)
     # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml
     set(APP_NAME MyGame)
     list(APPEND GAME_SOURCE
-         proj.android/app/jni/hellocpp/main.cpp
+         # proj.android/app/jni/hellocpp/main.cpp
+         proj.android/app/jni/src/SDL_android_main.cpp
          )
 elseif(LINUX)
     list(APPEND GAME_SOURCE
@@ -118,13 +143,14 @@ if(NOT ANDROID)
 else()
     add_library(${APP_NAME} SHARED ${all_code_files})
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
-    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive)
+    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive krkr kr2plugin)
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)
 target_include_directories(${APP_NAME}
-        PRIVATE Classes
+        # PRIVATE Classes
         PRIVATE ${COCOS2DX_ROOT_PATH}/cocos/audio/include/
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/3rd/breakpad/src/
 )
 
 # mark app resources

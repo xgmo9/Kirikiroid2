@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyGame.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyGame.iml" group="proj.android/MyGame" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-627985392/libcocos2dx.iml" filepath="$PROJECT_DIR$/.idea/modules/-627985392/libcocos2dx.iml" group="proj.android/libcocos2dx" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/proj.android.iml" filepath="$PROJECT_DIR$/.idea/modules/proj.android.iml" group="proj.android" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/proj.android.iml" filepath="$PROJECT_DIR$/.idea/modules/proj.android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/proj.android.MyGame.iml" filepath="$PROJECT_DIR$/.idea/modules/app/proj.android.MyGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-376329004/proj.android.libcocos2dx.iml" filepath="$PROJECT_DIR$/.idea/modules/-376329004/proj.android.libcocos2dx.iml" />
     </modules>
   </component>
 </project>

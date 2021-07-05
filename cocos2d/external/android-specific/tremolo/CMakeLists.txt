@@ -18,7 +18,7 @@ set(${target_name}_src
     ./Tremolo/misc.c
     ./Tremolo/res012.c
     ./Tremolo/treminfo.c
-    ./Tremolo/vorbisfile.c
+   # ./Tremolo/vorbisfile.c
 )
 
 add_library(${target_name} STATIC
@@ -36,3 +36,4 @@ set_target_properties(${target_name}
     LINKER_LANGUAGE C
 )
 
+target_link_libraries(${target_name} ogg opus)

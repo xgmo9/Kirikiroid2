@@ -57,7 +57,7 @@ namespace kr2android {
 void Android_PushEvents(const std::function<void()> &func);
 using namespace kr2android;
 extern "C" {
-	void Java_org_tvp_kirikiri2_KR2Activity_initDump(JNIEnv* env, jclass cls, jstring path) {
+	void Java_org_tvp_kirikiri2n_KR2Activity_initDump(JNIEnv* env, jclass cls, jstring path) {
 		const char* pszPath = env->GetStringUTFChars(path, NULL);
 		if (pszPath && *pszPath) {
 			static google_breakpad::MinidumpDescriptor descriptor(pszPath);
@@ -67,12 +67,12 @@ extern "C" {
 		env->ReleaseStringUTFChars(path, pszPath);
 	}
 	
-	void Java_org_tvp_kirikiri2_KR2Activity_onMessageBoxOK(JNIEnv* env, jclass cls, jint nButton) {
+	void Java_org_tvp_kirikiri2n_KR2Activity_onMessageBoxOK(JNIEnv* env, jclass cls, jint nButton) {
 		MsgBoxRet = nButton;
 		MessageBoxCond.notify_one();
 	}
     
-	void Java_org_tvp_kirikiri2_KR2Activity_onMessageBoxText(JNIEnv* env, jclass cls, jstring text) {
+	void Java_org_tvp_kirikiri2n_KR2Activity_onMessageBoxText(JNIEnv* env, jclass cls, jstring text) {
 		const char* pszText = env->GetStringUTFChars(text, NULL);
 		if (pszText && *pszText) {
             MessageBoxRetText = pszText;
@@ -80,21 +80,21 @@ extern "C" {
 		env->ReleaseStringUTFChars(text, pszText);
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeTouchesBegin(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeTouchesBegin(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
 		intptr_t idlong = id;
 		Android_PushEvents([idlong, x, y](){
 			cocos2d::Director::getInstance()->getOpenGLView()->handleTouchesBegin(1, (intptr_t*)&idlong, (float*)&x, (float*)&y);
 		});
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeTouchesEnd(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeTouchesEnd(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
 		intptr_t idlong = id;
 		Android_PushEvents([idlong, x, y](){
 			cocos2d::Director::getInstance()->getOpenGLView()->handleTouchesEnd(1, (intptr_t*)&idlong, (float*)&x, (float*)&y);
 		});
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeTouchesMove(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeTouchesMove(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
 		int size = env->GetArrayLength(ids);
 		if (size == 1) {
 			intptr_t idlong;
@@ -128,7 +128,7 @@ extern "C" {
 		});
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeTouchesCancel(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeTouchesCancel(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
 		int size = env->GetArrayLength(ids);
 		if (size == 1) {
 			intptr_t idlong;
@@ -173,7 +173,7 @@ extern "C" {
 #define KEYCODE_DPAD_CENTER  0x17
 #define KEYCODE_DEL 0x43
 
-	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeKeyAction(JNIEnv * env, jclass cls, jint keyCode, jboolean isPress) {
+	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeKeyAction(JNIEnv * env, jclass cls, jint keyCode, jboolean isPress) {
 		cocos2d::EventKeyboard::KeyCode pKeyCode;
 		switch (keyCode) {
 		case KEYCODE_BACK		: pKeyCode = cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE	; break;
@@ -196,7 +196,7 @@ extern "C" {
 		return JNI_TRUE;
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeInsertText(JNIEnv* env, jclass cls, jstring text) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeInsertText(JNIEnv* env, jclass cls, jstring text) {
 		const char* pszText = env->GetStringUTFChars(text, NULL);
 		if (pszText && *pszText) {
 			std::string str = pszText;
@@ -207,18 +207,18 @@ extern "C" {
 		env->ReleaseStringUTFChars(text, pszText);
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeDeleteBackward(JNIEnv* env, jclass cls) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeDeleteBackward(JNIEnv* env, jclass cls) {
 		Android_PushEvents(std::bind(&cocos2d::IMEDispatcher::dispatchDeleteBackward,
 			cocos2d::IMEDispatcher::sharedDispatcher()));
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeCharInput(JNIEnv* env, jclass cls, jint keyCode) {
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeCharInput(JNIEnv* env, jclass cls, jint keyCode) {
 		TVPMainScene *pScene = TVPMainScene::GetInstance();
 		if (!pScene) return;
 		pScene->getScheduler()->performFunctionInCocosThread(std::bind(&TVPMainScene::onCharInput, keyCode));
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeCommitText(
+	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeCommitText(
 		JNIEnv* env, jclass cls,
 		jstring text, jint newCursorPosition)
 	{
@@ -230,14 +230,14 @@ extern "C" {
 		env->ReleaseStringUTFChars(text, utftext);
 	}
 
-	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeGetHideSystemButton(JNIEnv* env, jclass cls)
+	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeGetHideSystemButton(JNIEnv* env, jclass cls)
 	{
 		return GlobalConfigManager::GetInstance()->GetValue<bool>("hide_android_sys_btn", false);
 	}
 
 	static float _mouseX, _mouseY;
 
-	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeHoverMoved(JNIEnv* env, jclass cls, jfloat x, jfloat y)
+	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeHoverMoved(JNIEnv* env, jclass cls, jfloat x, jfloat y)
 	{
 		Android_PushEvents([x, y]() {
 			cocos2d::GLView *glview = cocos2d::Director::getInstance()->getOpenGLView();
@@ -255,7 +255,7 @@ extern "C" {
 		return true;
 	}
 
-	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeMouseScrolled(JNIEnv* env, jclass cls, jfloat v)
+	JNIEXPORT jboolean JNICALL Java_org_tvp_kirikiri2n_KR2Activity_nativeMouseScrolled(JNIEnv* env, jclass cls, jfloat v)
 	{
 		Android_PushEvents([v]() {
 			cocos2d::GLView *glview = cocos2d::Director::getInstance()->getOpenGLView();
@@ -273,7 +273,7 @@ extern "C" {
 		return true;
 	}
 
-	JNIEXPORT void JNICALL Java_org_tvp_kirikiri2_KR2Activity_nativeOnLowMemory(JNIEnv* env, jclass cls)
+	JNIEXPORT void JNICALL Java_org_ tvp_kirikiri2n_KR2Activity_nativeOnLowMemory(JNIEnv* env, jclass cls)
 	{
 		Android_PushEvents([]() {
 			::Application->OnLowMemory();

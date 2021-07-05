@@ -28,7 +28,7 @@ target_link_libraries(external
     ext_chipmunk
     ext_freetype
     ext_recast
-    ext_jpeg
+#     ext_jpeg
     ext_uv
     ext_webp
     ext_bullet

@@ -49,7 +49,6 @@ import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLContext;
 
 public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelperListener {
     // ===========================================================
@@ -63,7 +62,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     // ===========================================================
     
     private Cocos2dxGLSurfaceView mGLSurfaceView = null;
-    private int[] mGLContextAttrs = null;
+    public int[] mGLContextAttrs = null;
     private Cocos2dxHandler mHandler = null;   
     private static Cocos2dxActivity sContext = null;
     private Cocos2dxVideoHelper mVideoHelper = null;
@@ -380,9 +379,9 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     // Inner and Anonymous Classes
     // ===========================================================
 
-    private class Cocos2dxEGLConfigChooser implements GLSurfaceView.EGLConfigChooser
+    public class Cocos2dxEGLConfigChooser implements GLSurfaceView.EGLConfigChooser
     {
-        private int[] mConfigAttributes;
+        public int[] mConfigAttributes;
         private  final int EGL_OPENGL_ES2_BIT = 0x04;
         private  final int EGL_OPENGL_ES3_BIT = 0x40;
         public Cocos2dxEGLConfigChooser(int redSize, int greenSize, int blueSize, int alphaSize, int depthSize, int stencilSize, int multisamplingCount)

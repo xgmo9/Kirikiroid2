@@ -258,7 +258,7 @@ void XP3ArchiveRepackAsync::SetOption(const std::string &name, bool v)
 	_impl->SetOption(name, v);
 }
 
-XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl()
+XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl(): CoderCompress(), CoderCopy()
 {
 	if (!g_CrcTable[1]) CrcGenerateTable();
 	CreateCoder(nCodecMethod, true, CoderCompress);

@@ -436,47 +436,47 @@ static ogg_int64_t oggbyte_read8(oggbyte_buffer *b,int pos){
 
 /* Now we get to the actual framing code */
 
-int ogg_page_version(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return -1;
-  return oggbyte_read1(&ob,4);
-}
-
-int ogg_page_continued(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return -1;
-  return oggbyte_read1(&ob,5)&0x01;
-}
-
-int ogg_page_bos(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return -1;
-  return oggbyte_read1(&ob,5)&0x02;
-}
-
-int ogg_page_eos(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return -1;
-  return oggbyte_read1(&ob,5)&0x04;
-}
-
-ogg_int64_t ogg_page_granulepos(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return -1;
-  return oggbyte_read8(&ob,6);
-}
-
-ogg_uint32_t ogg_page_serialno(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header)) return 0xffffffffUL;
-  return oggbyte_read4(&ob,14);
-}
-
-ogg_uint32_t ogg_page_pageno(ogg_page *og){
-  oggbyte_buffer ob;
-  if(oggbyte_init(&ob,og->header))return 0xffffffffUL;
-  return oggbyte_read4(&ob,18);
-}
+// int ogg_page_version(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return -1;
+//   return oggbyte_read1(&ob,4);
+// }
+// 
+// int ogg_page_continued(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return -1;
+//   return oggbyte_read1(&ob,5)&0x01;
+// }
+// 
+// int ogg_page_bos(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return -1;
+//   return oggbyte_read1(&ob,5)&0x02;
+// }
+// 
+// int ogg_page_eos(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return -1;
+//   return oggbyte_read1(&ob,5)&0x04;
+// }
+// 
+// ogg_int64_t ogg_page_granulepos(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return -1;
+//   return oggbyte_read8(&ob,6);
+// }
+// 
+// ogg_uint32_t ogg_page_serialno(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header)) return 0xffffffffUL;
+//   return oggbyte_read4(&ob,14);
+// }
+// 
+// ogg_uint32_t ogg_page_pageno(ogg_page *og){
+//   oggbyte_buffer ob;
+//   if(oggbyte_init(&ob,og->header))return 0xffffffffUL;
+//   return oggbyte_read4(&ob,18);
+// }
 
 /* returns the number of packets that are completed on this page (if
    the leading packet is begun on a previous page, but ends on this
@@ -495,18 +495,18 @@ more page packet), the return will be:
   ogg_page_continued(page) !=0
 */
 
-int ogg_page_packets(ogg_page *og){
-  int i;
-  int n;
-  int count=0;
-  oggbyte_buffer ob;
-  oggbyte_init(&ob,og->header);
-
-  n=oggbyte_read1(&ob,26);
-  for(i=0;i<n;i++)
-    if(oggbyte_read1(&ob,27+i)<255)count++;
-  return(count);
-}
+// int ogg_page_packets(ogg_page *og){
+//   int i;
+//   int n;
+//   int count=0;
+//   oggbyte_buffer ob;
+//   oggbyte_init(&ob,og->header);
+// 
+//   n=oggbyte_read1(&ob,26);
+//   for(i=0;i<n;i++)
+//     if(oggbyte_read1(&ob,27+i)<255)count++;
+//   return(count);
+// }
 
 /* Static CRC calculation table.  See older code in CVS for dead
    run-time initialization code. */
@@ -577,36 +577,36 @@ ogg_uint32_t crc_lookup[256]={
   0xafb010b1,0xab710d06,0xa6322bdf,0xa2f33668,
   0xbcb4666d,0xb8757bda,0xb5365d03,0xb1f740b4};
 
-void ogg_sync_init(ogg_sync_state *oy){
-  memset(oy,0,sizeof(*oy));
-  oy->bufferpool=ogg_buffer_create();
-}
-
+// void ogg_sync_init(ogg_sync_state *oy){
+//   memset(oy,0,sizeof(*oy));
+//   oy->bufferpool=ogg_buffer_create();
+// }
+// 
 ogg_sync_state *ogg_sync_create(void){
   ogg_sync_state *oy=_ogg_calloc(1,sizeof(*oy));
   memset(oy,0,sizeof(*oy));
   oy->bufferpool=ogg_buffer_create();
   return oy;
 }
-
-int ogg_sync_clear(ogg_sync_state *oy){
-  if(oy){
-    ogg_sync_reset(oy);
-    ogg_buffer_destroy(oy->bufferpool);
-    memset(oy,0,sizeof(*oy));
-  }
-  return OGG_SUCCESS;
-}
-
-int ogg_sync_destroy(ogg_sync_state *oy){
-  if(oy){
-    ogg_sync_reset(oy);
-    ogg_buffer_destroy(oy->bufferpool);
-    memset(oy,0,sizeof(*oy));
-    _ogg_free(oy);
-  }
-  return OGG_SUCCESS;
-}
+// 
+// int ogg_sync_clear(ogg_sync_state *oy){
+//   if(oy){
+//     ogg_sync_reset(oy);
+//     ogg_buffer_destroy(oy->bufferpool);
+//     memset(oy,0,sizeof(*oy));
+//   }
+//   return OGG_SUCCESS;
+// }
+// 
+// int ogg_sync_destroy(ogg_sync_state *oy){
+//   if(oy){
+//     ogg_sync_reset(oy);
+//     ogg_buffer_destroy(oy->bufferpool);
+//     memset(oy,0,sizeof(*oy));
+//     _ogg_free(oy);
+//   }
+//   return OGG_SUCCESS;
+// }
 
 unsigned char *ogg_sync_bufferin(ogg_sync_state *oy, long bytes){
 
@@ -651,15 +651,15 @@ unsigned char *ogg_sync_bufferin(ogg_sync_state *oy, long bytes){
   }
   return oy->fifo_head->buffer->data;
 }
-
-int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
-  if(!oy->fifo_head)return OGG_EINVAL;
-  if(oy->fifo_head->buffer->size-oy->fifo_head->length-oy->fifo_head->begin <
-     bytes)return OGG_EINVAL;
-  oy->fifo_head->length+=bytes;
-  oy->fifo_fill+=bytes;
-  return OGG_SUCCESS;
-}
+// 
+// int ogg_sync_wrote(ogg_sync_state *oy, long bytes){
+//   if(!oy->fifo_head)return OGG_EINVAL;
+//   if(oy->fifo_head->buffer->size-oy->fifo_head->length-oy->fifo_head->begin <
+//      bytes)return OGG_EINVAL;
+//   oy->fifo_head->length+=bytes;
+//   oy->fifo_fill+=bytes;
+//   return OGG_SUCCESS;
+// }
 
 #ifndef ONLY_C
 ogg_uint32_t _checksum(ogg_reference *or, int bytes);
@@ -691,110 +691,110 @@ static ogg_uint32_t _checksum(ogg_reference *or, int bytes){
 
 */
 
-long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
-  oggbyte_buffer page;
-  long           bytes,ret=0;
-
-  ogg_page_release(og);
-
-  bytes=oy->fifo_fill;
-  oggbyte_init(&page,oy->fifo_tail);
-
-  if(oy->headerbytes==0){
-    if(bytes<27)goto sync_out; /* not enough for even a minimal header */
-
-    /* verify capture pattern */
-    if(oggbyte_read1(&page,0)!=(int)'O' ||
-       oggbyte_read1(&page,1)!=(int)'g' ||
-       oggbyte_read1(&page,2)!=(int)'g' ||
-       oggbyte_read1(&page,3)!=(int)'S'    ) goto sync_fail;
-
-    oy->headerbytes=oggbyte_read1(&page,26)+27;
-  }
-  if(bytes<oy->headerbytes)goto sync_out; /* not enough for header +
-                                             seg table */
-  if(oy->bodybytes==0){
-    int i;
-    /* count up body length in the segment table */
-    for(i=0;i<oy->headerbytes-27;i++)
-      oy->bodybytes+=oggbyte_read1(&page,27+i);
-  }
-
-  if(oy->bodybytes+oy->headerbytes>bytes)goto sync_out;
-
-  /* we have what appears to be a complete page; last test: verify
-     checksum */
-  {
-    ogg_uint32_t chksum=oggbyte_read4(&page,22);
-    oggbyte_set4(&page,0,22);
-
-    /* Compare checksums; memory continues to be common access */
-    if(chksum!=_checksum(oy->fifo_tail,oy->bodybytes+oy->headerbytes)){
-
-      /* D'oh.  Mismatch! Corrupt page (or miscapture and not a page
-         at all). replace the computed checksum with the one actually
-         read in; remember all the memory is common access */
-
-      oggbyte_set4(&page,chksum,22);
-      goto sync_fail;
-    }
-    oggbyte_set4(&page,chksum,22);
-  }
-
-  /* We have a page.  Set up page return. */
-  if(og){
-    /* set up page output */
-    og->header=ogg_buffer_split(&oy->fifo_tail,&oy->fifo_head,oy->headerbytes);
-    og->header_len=oy->headerbytes;
-    og->body=ogg_buffer_split(&oy->fifo_tail,&oy->fifo_head,oy->bodybytes);
-    og->body_len=oy->bodybytes;
-  }else{
-    /* simply advance */
-    oy->fifo_tail=
-      ogg_buffer_pretruncate(oy->fifo_tail,oy->headerbytes+oy->bodybytes);
-    if(!oy->fifo_tail)oy->fifo_head=0;
-  }
-
-  ret=oy->headerbytes+oy->bodybytes;
-  oy->unsynced=0;
-  oy->headerbytes=0;
-  oy->bodybytes=0;
-  oy->fifo_fill-=ret;
-
-  return ret;
-
- sync_fail:
-
-  oy->headerbytes=0;
-  oy->bodybytes=0;
-  oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,1);
-  ret--;
-
-  /* search forward through fragments for possible capture */
-  while(oy->fifo_tail){
-    /* invariant: fifo_cursor points to a position in fifo_tail */
-    unsigned char *now=oy->fifo_tail->buffer->data+oy->fifo_tail->begin;
-    unsigned char *next=memchr(now, 'O', oy->fifo_tail->length);
-
-    if(next){
-      /* possible capture in this segment */
-      long bytes=next-now;
-      oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,bytes);
-      ret-=bytes;
-      break;
-    }else{
-      /* no capture.  advance to next segment */
-      long bytes=oy->fifo_tail->length;
-      ret-=bytes;
-      oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,bytes);
-    }
-  }
-  if(!oy->fifo_tail)oy->fifo_head=0;
-  oy->fifo_fill+=ret;
-
- sync_out:
-  return ret;
-}
+// long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
+//   oggbyte_buffer page;
+//   long           bytes,ret=0;
+// 
+//   ogg_page_release(og);
+// 
+//   bytes=oy->fifo_fill;
+//   oggbyte_init(&page,oy->fifo_tail);
+// 
+//   if(oy->headerbytes==0){
+//     if(bytes<27)goto sync_out; /* not enough for even a minimal header */
+// 
+//     /* verify capture pattern */
+//     if(oggbyte_read1(&page,0)!=(int)'O' ||
+//        oggbyte_read1(&page,1)!=(int)'g' ||
+//        oggbyte_read1(&page,2)!=(int)'g' ||
+//        oggbyte_read1(&page,3)!=(int)'S'    ) goto sync_fail;
+// 
+//     oy->headerbytes=oggbyte_read1(&page,26)+27;
+//   }
+//   if(bytes<oy->headerbytes)goto sync_out; /* not enough for header +
+//                                              seg table */
+//   if(oy->bodybytes==0){
+//     int i;
+//     /* count up body length in the segment table */
+//     for(i=0;i<oy->headerbytes-27;i++)
+//       oy->bodybytes+=oggbyte_read1(&page,27+i);
+//   }
+// 
+//   if(oy->bodybytes+oy->headerbytes>bytes)goto sync_out;
+// 
+//   /* we have what appears to be a complete page; last test: verify
+//      checksum */
+//   {
+//     ogg_uint32_t chksum=oggbyte_read4(&page,22);
+//     oggbyte_set4(&page,0,22);
+// 
+//     /* Compare checksums; memory continues to be common access */
+//     if(chksum!=_checksum(oy->fifo_tail,oy->bodybytes+oy->headerbytes)){
+// 
+//       /* D'oh.  Mismatch! Corrupt page (or miscapture and not a page
+//          at all). replace the computed checksum with the one actually
+//          read in; remember all the memory is common access */
+// 
+//       oggbyte_set4(&page,chksum,22);
+//       goto sync_fail;
+//     }
+//     oggbyte_set4(&page,chksum,22);
+//   }
+// 
+//   /* We have a page.  Set up page return. */
+//   if(og){
+//     /* set up page output */
+//     og->header=ogg_buffer_split(&oy->fifo_tail,&oy->fifo_head,oy->headerbytes);
+//     og->header_len=oy->headerbytes;
+//     og->body=ogg_buffer_split(&oy->fifo_tail,&oy->fifo_head,oy->bodybytes);
+//     og->body_len=oy->bodybytes;
+//   }else{
+//     /* simply advance */
+//     oy->fifo_tail=
+//       ogg_buffer_pretruncate(oy->fifo_tail,oy->headerbytes+oy->bodybytes);
+//     if(!oy->fifo_tail)oy->fifo_head=0;
+//   }
+// 
+//   ret=oy->headerbytes+oy->bodybytes;
+//   oy->unsynced=0;
+//   oy->headerbytes=0;
+//   oy->bodybytes=0;
+//   oy->fifo_fill-=ret;
+// 
+//   return ret;
+// 
+//  sync_fail:
+// 
+//   oy->headerbytes=0;
+//   oy->bodybytes=0;
+//   oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,1);
+//   ret--;
+// 
+//   /* search forward through fragments for possible capture */
+//   while(oy->fifo_tail){
+//     /* invariant: fifo_cursor points to a position in fifo_tail */
+//     unsigned char *now=oy->fifo_tail->buffer->data+oy->fifo_tail->begin;
+//     unsigned char *next=memchr(now, 'O', oy->fifo_tail->length);
+// 
+//     if(next){
+//       /* possible capture in this segment */
+//       long bytes=next-now;
+//       oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,bytes);
+//       ret-=bytes;
+//       break;
+//     }else{
+//       /* no capture.  advance to next segment */
+//       long bytes=oy->fifo_tail->length;
+//       ret-=bytes;
+//       oy->fifo_tail=ogg_buffer_pretruncate(oy->fifo_tail,bytes);
+//     }
+//   }
+//   if(!oy->fifo_tail)oy->fifo_head=0;
+//   oy->fifo_fill+=ret;
+// 
+//  sync_out:
+//   return ret;
+// }
 
 /* sync the stream and get a page.  Keep trying until we find a page.
    Supress 'sync errors' after reporting the first.
@@ -807,79 +807,79 @@ long ogg_sync_pageseek(ogg_sync_state *oy,ogg_page *og){
    Returns pointers into buffered data; invalidated by next call to
    _stream, _clear, _init, or _buffer */
 
-int ogg_sync_pageout(ogg_sync_state *oy, ogg_page *og){
-
-  /* all we need to do is verify a page at the head of the stream
-     buffer.  If it doesn't verify, we look for the next potential
-     frame */
-
-  while(1){
-    long ret=ogg_sync_pageseek(oy,og);
-    if(ret>0){
-      /* have a page */
-      return 1;
-    }
-    if(ret==0){
-      /* need more data */
-      return 0;
-    }
-
-    /* head did not start a synced page... skipped some bytes */
-    if(!oy->unsynced){
-      oy->unsynced=1;
-      return OGG_HOLE;
-    }
-
-    /* loop. keep looking */
-
-  }
-}
+// int ogg_sync_pageout(ogg_sync_state *oy, ogg_page *og){
+// 
+//   /* all we need to do is verify a page at the head of the stream
+//      buffer.  If it doesn't verify, we look for the next potential
+//      frame */
+// 
+//   while(1){
+//     long ret=ogg_sync_pageseek(oy,og);
+//     if(ret>0){
+//       /* have a page */
+//       return 1;
+//     }
+//     if(ret==0){
+//       /* need more data */
+//       return 0;
+//     }
+// 
+//     /* head did not start a synced page... skipped some bytes */
+//     if(!oy->unsynced){
+//       oy->unsynced=1;
+//       return OGG_HOLE;
+//     }
+// 
+//     /* loop. keep looking */
+// 
+//   }
+// }
 
 /* clear things to an initial state.  Good to call, eg, before seeking */
-int ogg_sync_reset(ogg_sync_state *oy){
-
-  ogg_buffer_release(oy->fifo_tail);
-  oy->fifo_tail=0;
-  oy->fifo_head=0;
-  oy->fifo_fill=0;
-
-  oy->unsynced=0;
-  oy->headerbytes=0;
-  oy->bodybytes=0;
-  return OGG_SUCCESS;
-}
-
-void ogg_stream_init(ogg_stream_state *os, int serialno){
-  memset(os, 0, sizeof(*os));
-  os->serialno=serialno;
-  os->pageno=-1;
-}
-
+// int ogg_sync_reset(ogg_sync_state *oy){
+// 
+//   ogg_buffer_release(oy->fifo_tail);
+//   oy->fifo_tail=0;
+//   oy->fifo_head=0;
+//   oy->fifo_fill=0;
+// 
+//   oy->unsynced=0;
+//   oy->headerbytes=0;
+//   oy->bodybytes=0;
+//   return OGG_SUCCESS;
+// }
+// 
+// void ogg_stream_init(ogg_stream_state *os, int serialno){
+//   memset(os, 0, sizeof(*os));
+//   os->serialno=serialno;
+//   os->pageno=-1;
+// }
+// 
 ogg_stream_state *ogg_stream_create(int serialno){
   ogg_stream_state *os=_ogg_calloc(1,sizeof(*os));
   os->serialno=serialno;
   os->pageno=-1;
   return os;
 }
-
-int ogg_stream_clear(ogg_stream_state *os){
-  if(os){
-    ogg_buffer_release(os->header_tail);
-    ogg_buffer_release(os->body_tail);
-    memset(os,0,sizeof(*os));
-  }
-  return OGG_SUCCESS;
-}
-
-int ogg_stream_destroy(ogg_stream_state *os){
-  if(os){
-    ogg_buffer_release(os->header_tail);
-    ogg_buffer_release(os->body_tail);
-    memset(os,0,sizeof(*os));
-    _ogg_free(os);
-  }
-  return OGG_SUCCESS;
-}
+// 
+// int ogg_stream_clear(ogg_stream_state *os){
+//   if(os){
+//     ogg_buffer_release(os->header_tail);
+//     ogg_buffer_release(os->body_tail);
+//     memset(os,0,sizeof(*os));
+//   }
+//   return OGG_SUCCESS;
+// }
+// 
+// int ogg_stream_destroy(ogg_stream_state *os){
+//   if(os){
+//     ogg_buffer_release(os->header_tail);
+//     ogg_buffer_release(os->body_tail);
+//     memset(os,0,sizeof(*os));
+//     _ogg_free(os);
+//   }
+//   return OGG_SUCCESS;
+// }
 
 
 #define FINFLAG 0x80000000UL
@@ -992,70 +992,70 @@ static void _span_queued_page(ogg_stream_state *os){
 /* add the incoming page to the stream state; we decompose the page
    into packet segments here as well. */
 
-int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
+// int ogg_stream_pagein(ogg_stream_state *os, ogg_page *og){
+// 
+//   int serialno=ogg_page_serialno(og);
+//   int version=ogg_page_version(og);
+// 
+//   /* check the serial number */
+//   if(serialno!=os->serialno){
+//     //ogg_page_release(og);
+//     return OGG_ESERIAL;
+//   }
+//   if(version>0){
+//     //ogg_page_release(og);
+//     return OGG_EVERSION;
+//   }
+// 
+//   /* add to fifos */
+//   if(!os->body_tail){
+//     os->body_tail=og->body;
+//     os->body_head=ogg_buffer_walk(og->body);
+//   }else{
+//     os->body_head=ogg_buffer_cat(os->body_head,og->body);
+//   }
+//   if(!os->header_tail){
+//     os->header_tail=og->header;
+//     os->header_head=ogg_buffer_walk(og->header);
+//     os->lacing_fill=-27;
+//   }else{
+//     os->header_head=ogg_buffer_cat(os->header_head,og->header);
+//   }
+// 
+//   memset(og,0,sizeof(*og));
+//   return OGG_SUCCESS;
+// }
 
-  int serialno=ogg_page_serialno(og);
-  int version=ogg_page_version(og);
+// int ogg_stream_reset(ogg_stream_state *os){
+// 
+//   ogg_buffer_release(os->header_tail);
+//   ogg_buffer_release(os->body_tail);
+//   os->header_tail=os->header_head=0;
+//   os->body_tail=os->body_head=0;
+// 
+//   os->e_o_s=0;
+//   os->b_o_s=0;
+//   os->pageno=-1;
+//   os->packetno=0;
+//   os->granulepos=0;
+// 
+//   os->body_fill=0;
+//   os->lacing_fill=0;
+// 
+//   os->holeflag=0;
+//   os->spanflag=0;
+//   os->clearflag=0;
+//   os->laceptr=0;
+//   os->body_fill_next=0;
+// 
+//   return OGG_SUCCESS;
+// }
 
-  /* check the serial number */
-  if(serialno!=os->serialno){
-    //ogg_page_release(og);
-    return OGG_ESERIAL;
-  }
-  if(version>0){
-    //ogg_page_release(og);
-    return OGG_EVERSION;
-  }
-
-  /* add to fifos */
-  if(!os->body_tail){
-    os->body_tail=og->body;
-    os->body_head=ogg_buffer_walk(og->body);
-  }else{
-    os->body_head=ogg_buffer_cat(os->body_head,og->body);
-  }
-  if(!os->header_tail){
-    os->header_tail=og->header;
-    os->header_head=ogg_buffer_walk(og->header);
-    os->lacing_fill=-27;
-  }else{
-    os->header_head=ogg_buffer_cat(os->header_head,og->header);
-  }
-
-  memset(og,0,sizeof(*og));
-  return OGG_SUCCESS;
-}
-
-int ogg_stream_reset(ogg_stream_state *os){
-
-  ogg_buffer_release(os->header_tail);
-  ogg_buffer_release(os->body_tail);
-  os->header_tail=os->header_head=0;
-  os->body_tail=os->body_head=0;
-
-  os->e_o_s=0;
-  os->b_o_s=0;
-  os->pageno=-1;
-  os->packetno=0;
-  os->granulepos=0;
-
-  os->body_fill=0;
-  os->lacing_fill=0;
-
-  os->holeflag=0;
-  os->spanflag=0;
-  os->clearflag=0;
-  os->laceptr=0;
-  os->body_fill_next=0;
-
-  return OGG_SUCCESS;
-}
-
-int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
-  ogg_stream_reset(os);
-  os->serialno=serialno;
-  return OGG_SUCCESS;
-}
+// int ogg_stream_reset_serialno(ogg_stream_state *os,int serialno){
+//   ogg_stream_reset(os);
+//   os->serialno=serialno;
+//   return OGG_SUCCESS;
+// }
 
 static int _packetout(ogg_stream_state *os,ogg_packet *op,int adv){
 
@@ -1135,13 +1135,13 @@ static int _packetout(ogg_stream_state *os,ogg_packet *op,int adv){
   return 1;
 }
 
-int ogg_stream_packetout(ogg_stream_state *os,ogg_packet *op){
-  return _packetout(os,op,1);
-}
+// int ogg_stream_packetout(ogg_stream_state *os,ogg_packet *op){
+//   return _packetout(os,op,1);
+// }
 
-int ogg_stream_packetpeek(ogg_stream_state *os,ogg_packet *op){
-  return _packetout(os,op,0);
-}
+// int ogg_stream_packetpeek(ogg_stream_state *os,ogg_packet *op){
+//   return _packetout(os,op,0);
+// }
 
 int ogg_packet_release(ogg_packet *op) {
   if(op){
