@@ -26,4 +26,6 @@ tar xvf opusfile-0.12.tar.gz
 tar xvf unrarsrc-6.0.7.tar.gz
 tar xvf SDL2-2.0.14.tar.gz
 
+cp SDL_main.c SDL2-2.0.14/src/core/android/
+
 
