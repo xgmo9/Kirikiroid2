@@ -6,7 +6,7 @@
 	url = git@github.com:google/breakpad
 [submodule "3rd/ffmpeg"]
 	path = 3rd/ffmpeg
-	url = git@github.com:zeas2/ffmepg
+	url = git@github.com:zeas2/FFmpeg.git
 [submodule "3rd/libjpeg-turbo"]
 	path = 3rd/libjpeg-turbo
 	url = git@github.com:krkrz/libjpeg-turbo
