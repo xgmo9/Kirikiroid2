@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 # update submodule 
+git submodule init
 git submodule update --init
 git submodule sync
 cd ffmpeg 
@@ -26,6 +27,6 @@ tar xvf opusfile-0.12.tar.gz
 tar xvf unrarsrc-6.0.7.tar.gz
 tar xvf SDL2-2.0.14.tar.gz
 
-cp SDL_main.c SDL2-2.0.14/src/core/android/
+cp SDL_android.c SDL2-2.0.14/src/core/android/
 
 

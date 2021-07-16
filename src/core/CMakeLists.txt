@@ -89,8 +89,9 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/visual/RenderScript/rs
     ${CMAKE_CURRENT_SOURCE_DIR}/../plugins
     ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/prebuilt/libjpeg-turbo/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/prebuilt/opencv/jni/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/prebuilt/lz4/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/prebuilt/opencv/sdk/native/jni/include
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/prebuilt/lz4/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/lz4/lib
     ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/libarchive
     ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/oniguruma/src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../3rd/

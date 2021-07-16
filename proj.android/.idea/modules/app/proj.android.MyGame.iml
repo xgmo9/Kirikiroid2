@@ -35,14 +35,12 @@
     <output-test url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../3rd">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../3rd" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../3rd" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../Resources">
       <sourceFolder url="file://$MODULE_DIR$/../../../../Resources" type="java-resource" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../cocos2d">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../cocos2d" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../cocos2d" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app">
@@ -50,7 +48,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../app/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/jni/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../app/jni/src" />
       <excludeFolder url="file://$MODULE_DIR$/../../../app/.cxx" />
       <excludeFolder url="file://$MODULE_DIR$/../../../app/.externalNativeBuild" />
@@ -58,7 +55,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../app/build" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../src">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../src" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
