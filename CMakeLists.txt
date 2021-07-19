@@ -143,7 +143,7 @@ if(NOT ANDROID)
 else()
     add_library(${APP_NAME} SHARED ${all_code_files})
     add_subdirectory(${COCOS2DX_ROOT_PATH}/cocos/platform/android ${ENGINE_BINARY_PATH}/cocos/platform)
-    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive krkr kr2plugin)
+    target_link_libraries(${APP_NAME} -Wl,--whole-archive cpp_android_spec -Wl,--no-whole-archive krkr -Wl,--whole-archive kr2plugin -Wl,--no-whole-archive)
 endif()
 
 target_link_libraries(${APP_NAME} cocos2d)
