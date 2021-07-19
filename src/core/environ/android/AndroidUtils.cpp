@@ -663,6 +663,7 @@ bool TVPCheckStartupPath(const std::string &path) {
 		jstring jstrPath = methodInfo.env->NewStringUTF(testPath.c_str());
 		success = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jstrPath);
 		methodInfo.env->DeleteLocalRef(jstrPath);
+        TVPDeleteFile(testPath.c_str());
 #if 0
 		if (success) {
 			parent += "/savedata";

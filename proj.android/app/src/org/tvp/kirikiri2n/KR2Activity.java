@@ -923,7 +923,7 @@ public class KR2Activity extends Cocos2dxActivity implements ActivityCompat.OnRe
 
         // Ensure that the dummy file is not remaining.
         document.delete();
-        folder.delete();
+        DocumentFile.fromFile(folder).delete();
 
         return result;
     }
