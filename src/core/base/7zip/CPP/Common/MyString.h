@@ -475,6 +475,7 @@ public:
   UString();
   UString(wchar_t c);
   UString(const wchar_t *s);
+  UString(const char16_t *s);
   UString(const UString &s);
   ~UString() { MY_STRING_DELETE(_chars); }
 

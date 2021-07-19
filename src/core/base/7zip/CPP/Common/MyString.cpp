@@ -1009,6 +1009,16 @@ UString::UString(const wchar_t *s)
   wmemcpy(_chars, s, len + 1);
 }
 
+UString::UString(const char16_t *s)
+{
+  unsigned i;
+  for (i = 0; s[i] != 0; i++);
+  unsigned len = i;
+  SetStartLen(len);
+  for (i = 0; s[i] != 0; i++)
+      _chars[i] = s[i];
+}
+
 UString::UString(const UString &s)
 {
   SetStartLen(s._len);
