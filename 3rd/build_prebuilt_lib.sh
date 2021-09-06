@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-if [[ `which aarch64-linux-android21-clang` == '' ]];
+if [ "`which aarch64-linux-android21-clang`" = "" ];
 then
     echo "You should create android NDK toolchains first and add it into your PATH"
     exit
