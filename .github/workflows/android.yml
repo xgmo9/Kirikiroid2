@@ -1,0 +1,46 @@
+name: Android CI
+
+on:
+  push:
+    branches: new
+  pull_request:
+    branches: [ new ]
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        abi:
+          - arm64-v8a
+    env:
+      ABI: ${{ matrix.abi }}
+    steps:
+      - name: Fetch source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: "11"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install extra-cmake-modules gettext appstream
+
+      - name: Build prebuilt
+        run: |
+          cd 3rd
+          bash ./download_3rd_lib.sh
+          bash ./build_prebuilt_lib.sh
+          
+      - name: Build APK
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          arguments: assembleRelease
+          gradle-version: wrapper
