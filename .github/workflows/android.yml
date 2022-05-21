@@ -21,6 +21,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+      
+      - name: Android NDK toolchain Setup
+        uses: ravinderjangra/android-ndk-toolchain-setup@0.2
+        with:
+          add-to-path: true
 
       - name: Setup Java
         uses: actions/setup-java@v2
@@ -38,7 +43,7 @@ jobs:
           cd 3rd
           bash ./download_3rd_lib.sh
           bash ./build_prebuilt_lib.sh
-          
+          cd ../proj.android
       - name: Build APK
         uses: burrunan/gradle-cache-action@v1
         with:
