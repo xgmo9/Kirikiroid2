@@ -25,6 +25,7 @@ jobs:
       - name: Android NDK toolchain Setup
         uses: ravinderjangra/android-ndk-toolchain-setup@0.2
         with:
+          arch: 'x86'
           add-to-path: true
 
       - name: Setup Java
