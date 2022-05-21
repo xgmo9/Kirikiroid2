@@ -22,11 +22,8 @@ jobs:
           fetch-depth: 0
           submodules: recursive
       
-      - name: Android NDK toolchain Setup
-        uses: ravinderjangra/android-ndk-toolchain-setup@0.2
-        with:
-          arch: 'x86'
-          add-to-path: true
+      - name: Setup NDK
+        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;23.1.7779620" --sdk_root=${ANDROID_SDK_ROOT}
 
       - name: Setup Java
         uses: actions/setup-java@v2
